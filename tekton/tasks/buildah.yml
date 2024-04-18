@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: nocodb-builder
+  namespace: tekton
+spec:
+  steps:
+    - name: nocodb-builder
+      image: "quay.io/buildah/stable:latest"
+      script: |
+          buildah --storage-driver=overlay bud --no-cache -f ./tekton/Dockerfiles/Dockerfile.copying-artifacts -t nocodb-builder .
+          buildah --storage-driver=overlay tag nocodb-builder selfhosted.jfrog.io/nocodb-local/nocodb-builder:latest
+          buildah --storage-driver=overlay --creds tekton:Tekton123@ push selfhosted.jfrog.io/nocodb-local/nocodb-builder:latest
+      workingDir: $(workspaces.source.path)/
+  workspaces:
+    - name: source

@@ -19,12 +19,12 @@ spec:
       workspaces:
         - name: output
           workspace: shared-workspace
-    - name: install-dependencies
+    - name: nocodb-builder
       runAfter:
         - fetch-repository
       taskRef:
         kind: Task
-        name: build-docker-image-install-deps
+        name: nocodb-builder   
       workspaces:
         - name: source
           workspace: shared-workspace
