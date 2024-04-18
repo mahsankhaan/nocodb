@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-docker-image-install-deps
+spec:
+  steps:
+    - name: build-image
+      image: quay.io/buildah/stable:latest
+      command:
+        - /bin/bash
+      args:
+        - -c
+        - |
+          pwd 
+          ls
+          buildah bud -f ./tekton/Dockerfiles/Dockerfile.install-deps -t nocodb-install-deps 
+          buildah login -umuhammadrafay7655@gmail.com selfhosted.jfrog.io
+          buildah tag nocodb-install-deps selfhosted.jfrog.io/nocodb-local/nocodb-install-deps:latest
+          buildah push selfhosted.jfrog.io/nocodb-local/nocodb-install-deps:latest
+      workingDir: $(workspaces.source.path)/
+  workspaces:
+    - name: source

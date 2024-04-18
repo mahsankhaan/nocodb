@@ -1,0 +1,32 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: test-pipeline
+  namespace: tekton
+spec:
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: "https://github.com/MRafaydev/nocodb"
+        - name: subdirectory
+          value: ""
+        - name: revision
+          value: main
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: install-dependencies
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: build-docker-image-install-deps
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+  workspaces:
+    - name: shared-workspace
