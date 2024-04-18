@@ -10,7 +10,7 @@
 </h1>
 
 <p align="center">
-Turns any MySQL, PostgreSQL, SQL Server, SQLite & MariaDB into a smart spreadsheet.
+Turns any MySQL, PostgreSQL, SQL Serve, SQLite & MariaDB into a smart spreadsheet.
 </p>
 
 <div align="center">
