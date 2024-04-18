@@ -9,11 +9,11 @@ RUN apk add --no-cache python3 make g++
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Copy build artifacts from the previous stage
-COPY --from=selfhosted.jfrog.io/nocodb-local/nocodb-install-deps:latest /app/packages/nocodb/package.json ./package.json  
-COPY --from=selfhosted.jfrog.io/nocodb-local/nocodb-install-deps:latest /app/packages/nocodb/docker/nc-gui/ ./docker/nc-gui/
-COPY --from=selfhosted.jfrog.io/nocodb-local/nocodb-install-deps:latest /app/packages/nocodb/docker/main.js ./docker/index.js
-COPY --from=selfhosted.jfrog.io/nocodb-local/nocodb-install-deps:latest /app/packages/nocodb/docker/start-local.sh /usr/src/appEntry/start.sh
-COPY --from=selfhosted.jfrog.io/nocodb-local/nocodb-install-deps:latest /app/packages/nocodb/src/public/ ./docker/public/
+COPY --from=selfhosted.jfrog.io/nocodb-deps/nocodb-install-deps:latest /app/packages/nocodb/package.json ./package.json  
+COPY --from=selfhosted.jfrog.io/nocodb-deps/nocodb-install-deps:latest /app/packages/nocodb/docker/nc-gui/ ./docker/nc-gui/
+COPY --from=selfhosted.jfrog.io/nocodb-deps/nocodb-install-deps:latest /app/packages/nocodb/docker/main.js ./docker/index.js
+COPY --from=selfhosted.jfrog.io/nocodb-deps/nocodb-install-deps:latest /app/packages/nocodb/docker/start-local.sh /usr/src/appEntry/start.sh
+COPY --from=selfhosted.jfrog.io/nocodb-deps/nocodb-install-deps:latest /app/packages/nocodb/src/public/ ./docker/public/
 
 # Configure npm for flat node_modules without symlinks
 RUN echo "node-linker=hoisted" > .npmrc

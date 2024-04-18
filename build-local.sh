@@ -42,4 +42,3 @@ copy_gui_artifacts 1>> ${LOG_FILE} 2>> ${LOG_FILE}
 echo "Info: Packaging nocodb, including nocodb-sdk and nc-gui" | tee -a ${LOG_FILE}
 package_nocodb 1>> ${LOG_FILE} 2>> ${LOG_FILE}
 
-log_message | tee -a ${LOG_FILE}
