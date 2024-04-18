@@ -8,6 +8,7 @@ spec:
     - name: nocodb-builder
       image: "quay.io/buildah/stable:latest"
       script: |
+          buildah login selfhosted.jfrog.io --username=tekton --password=Tekton123@
           buildah --storage-driver=overlay bud --no-cache -f ./tekton/Dockerfiles/Dockerfile.copying-artifacts -t nocodb-builder .
           buildah --storage-driver=overlay tag nocodb-builder selfhosted.jfrog.io/nocodb-local/nocodb-builder:latest
           buildah --storage-driver=overlay --creds tekton:Tekton123@ push selfhosted.jfrog.io/nocodb-local/nocodb-builder:latest

@@ -1,14 +1,13 @@
 ###########
 # Stage 1: Installing Dependencies & Building GUI
 ###########
-FROM node:latest AS build
-ENV SCRIPT_DIR /app
-WORKDIR ${SCRIPT_DIR}
-COPY . ${SCRIPT_DIR}
-RUN apt-get update && apt-get install -y rsync \
-    && npm install -g pnpm \
-    && chmod +x build-local.sh \
-    && ./build-local.sh
-
-
-
+FROM registry.redhat.io/rhel8/buildah:latest 
+WORKDIR /app
+COPY . .
+RUN yum update -y && \
+    yum install -y rsync && \
+    curl --silent --location https://rpm.nodesource.com/setup_14.x | bash - && \
+    yum -y install nodejs && \
+    npm install -g pnpm && \
+    chmod +x build-local.sh && \
+    ./build-local.sh

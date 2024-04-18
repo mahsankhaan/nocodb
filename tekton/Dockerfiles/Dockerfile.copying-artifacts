@@ -27,3 +27,31 @@ RUN pnpm uninstall nocodb-sdk && \
 # Package built code into app.tar.gz and add execute permission to start.sh
 RUN tar -czf ../appEntry/app.tar.gz ./* && \
     chmod +x /usr/src/appEntry/start.sh
+
+
+##########
+# Stage 3: Runner
+##########
+FROM alpine:3.19
+WORKDIR /usr/src/app
+
+ENV NC_DOCKER 0.6
+ENV NODE_ENV production
+ENV PORT 8080
+ENV NC_TOOL_DIR=/usr/app/data/
+
+RUN apk --update --no-cache add \
+    nodejs \
+    tar \
+    dumb-init \
+    curl \
+    jq
+
+# Copy packaged production code & main entry file
+COPY --from=builder /usr/src/appEntry/ /usr/src/appEntry/
+
+EXPOSE 8080
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+
+# Start Nocodb
+CMD ["/usr/src/appEntry/start.sh"]
