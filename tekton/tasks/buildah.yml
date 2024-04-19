@@ -6,9 +6,16 @@ metadata:
 spec:
   steps:
     - name: nocodb-builder
-      image: "registry.redhat.io/rhel8/buildah:latest"
+      image: "quay.io/buildah/stable:latest"
       script: |
-          ./build-local-docker-image.sh
+        yum update -y && \
+        yum install -y rsync && \
+        curl --silent --location https://rpm.nodesource.com/setup_18.x | bash - && \
+        yum -y install nodejs && \
+        npm install -g pnpm && \
+        pnpm install && \
+        pnpm bootstrap && \
+        ./build-local-docker-image.sh
       workingDir: $(workspaces.source.path)/
   workspaces:
     - name: source
