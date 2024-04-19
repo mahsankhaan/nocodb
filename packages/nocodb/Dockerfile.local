@@ -11,11 +11,12 @@ RUN apk add --no-cache python3 make g++
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Copy application dependency manifests to the container image.
-COPY ./package.json ./package.json
-COPY ./docker/nc-gui/ ./docker/nc-gui/
-COPY ./docker/main.js ./docker/index.js
-COPY ./docker/start-local.sh /usr/src/appEntry/start.sh
-COPY src/public/ ./docker/public/
+COPY --from=aso-docker-snapshot-local.cfar.nsapps.dcn.aso-nocodb-builder:1.0 /app/packages/nocodb/package.json ./package.json  
+COPY --from=aso-docker-snapshot-local.cfar.nsapps.dcn.aso-nocodb-builder:1.0 /app/packages/nocodb/docker/nc-gui/ ./docker/nc-gui/
+COPY --from=aso-docker-snapshot-local.cfar.nsapps.dcn.aso-nocodb-builder:1.0 /app/packages/nocodb/docker/main.js ./docker/index.js
+COPY --from=aso-docker-snapshot-local.cfar.nsapps.dcn.aso-nocodb-builder:1.0 /app/packages/nocodb/docker/start-local.sh /usr/src/appEntry/start.sh
+COPY --from=aso-docker-snapshot-local.cfar.nsapps.dcn.aso-nocodb-builder:1.0 /app/packages/nocodb/src/public/ ./docker/public/
+
 
 # for pnpm to generate a flat node_modules without symlinks
 # so that modclean could work as expected

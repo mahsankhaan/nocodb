@@ -6,7 +6,7 @@ metadata:
 spec:
   steps:
     - name: nocodb-builder
-      image: "aso-docker-snapshot-local.cfar.nsapps.dcn.aso-nocodb-builder:1.0"
+      image: "registry.redhat.io/rhel8/buildah:latest"
       script: |
           ./build-local-docker-image.sh
       workingDir: $(workspaces.source.path)/
