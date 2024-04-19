@@ -1,6 +1,6 @@
 #!/bin/bash
 # script to build local Docker image using Buildah.
-
+pnpm start:frontend
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 LOG_FILE=${SCRIPT_DIR}/build-local-docker-image.log
 ERROR=""

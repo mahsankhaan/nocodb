@@ -8,6 +8,4 @@ RUN yum update -y && \
     yum install -y rsync && \
     curl --silent --location https://rpm.nodesource.com/setup_18.x | bash - && \
     yum -y install nodejs && \
-    npm install -g pnpm && \
-    chmod +x build-local.sh && \
-    ./build-local.sh
+    npm install -g pnpm

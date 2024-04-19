@@ -6,12 +6,9 @@ metadata:
 spec:
   steps:
     - name: nocodb-builder
-      image: "quay.io/buildah/stable:latest"
+      image: "aso-docker-snapshot-local.cfar.nsapps.dcn.aso-nocodb-builder:1.0"
       script: |
-          buildah login selfhosted.jfrog.io --username=tekton --password=Tekton123@
-          buildah --storage-driver=overlay bud --no-cache -f ./tekton/Dockerfiles/Dockerfile.copying-artifacts -t nocodb-runner-image .
-          buildah --storage-driver=overlay tag nocodb-runner-image selfhosted.jfrog.io/nocodb-deps/nocodb-runner-image:latest
-          buildah --storage-driver=overlay --creds tekton:Tekton123@ push selfhosted.jfrog.io/nocodb-deps/nocodb-runner-image:latest
+          ./build-local-docker-image.sh
       workingDir: $(workspaces.source.path)/
   workspaces:
     - name: source
