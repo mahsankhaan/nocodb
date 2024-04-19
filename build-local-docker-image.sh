@@ -32,7 +32,8 @@ function package_nocodb() {
 
 function build_image() {
     # build container image
-    buildah bud -f Dockerfile.local -t nocodb-local || ERROR="build_image failed"
+   # buildah bud -f Dockerfile.local -t nocodb-local || ERROR="build_image failed"
+    buildah --storage-driver=overlay bud --no-cache -f ./tekton/Dockerfiles/Dockerfile.copying-artifacts -t nocodb-runner-image .
 }
 
 function log_message() {
