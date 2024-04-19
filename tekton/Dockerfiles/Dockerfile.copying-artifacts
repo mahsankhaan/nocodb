@@ -37,7 +37,7 @@ RUN tar -czf ../appEntry/app.tar.gz ./* && \
 ##########
 # Stage 3: Runner
 ##########
-FROM registry.redhat.io/rhel8/nodejs-18
+FROM alpine:3.19
 WORKDIR /usr/src/app
 
 ENV NC_DOCKER 0.6
@@ -45,19 +45,12 @@ ENV NODE_ENV production
 ENV PORT 8080
 ENV NC_TOOL_DIR=/usr/app/data/
 
-# Install necessary dependencies as root
-USER root
-
-RUN yum install -y \
+RUN apk --update --no-cache add \
     nodejs \
-    wget \
     tar \
+    dumb-init \
     curl \
-    jq && \
-    yum clean all
-
-RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64
-RUN chmod +x /usr/local/bin/dumb-init
+    jq
 
 # Copy packaged production code & main entry file
 COPY --from=builder /usr/src/appEntry/ /usr/src/appEntry/
