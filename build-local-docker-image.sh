@@ -33,7 +33,7 @@ function package_nocodb() {
 function build_image() {
     # build container image
    # buildah --storage-driver=overlay bud --no-cache -f ./tekton/Dockerfiles/Dockerfile.copying-artifacts -t nocodb-runner-image .  (our custom image)
-     buildah --storage-driver=overlay bud --no-cache -f${SCRIPT_DIR}/packages/nocodb/Dockerfile -t nocodb-runner-image .
+     buildah --storage-driver=overlay bud --no-cache -f ${SCRIPT_DIR}/packages/nocodb/Dockerfile -t nocodb-runner-image .
      buildah --storage-driver=overlay tag nocodb-runner-image selfhosted.jfrog.io/nocodb-deps/nocodb-runner-image:new
      buildah --storage-driver=overlay --creds tekton:Tekton123@ push selfhosted.jfrog.io/nocodb-deps/nocodb-runner-image:new
 }
