@@ -27,12 +27,12 @@ RUN apk add --no-cache python3 make g++
 # install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Copy application dependency manifests to the container image.
-COPY ./package.json ./package.json
-COPY ./docker/main.js ./docker/main.js
-#COPY ./docker/start.sh /usr/src/appEntry/start.sh
-COPY ./docker/start-litestream.sh /usr/src/appEntry/start.sh
-COPY src/public/ ./docker/public/
+# Copy build artifacts from the previous stage
+COPY   /app/packages/nocodb/package.json ./package.json  
+COPY   /app/packages/nocodb/docker/nc-gui/ ./docker/nc-gui/
+COPY  /app/packages/nocodb/docker/main.js ./docker/index.js
+COPY  /app/packages/nocodb/docker/start-local.sh /usr/src/appEntry/start.sh
+COPY  /app/packages/nocodb/src/public/ ./docker/public/
 
 # for pnpm to generate a flat node_modules without symlinks
 # so that modclean could work as expected
