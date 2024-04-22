@@ -5,17 +5,14 @@ metadata:
   namespace: tekton
 spec:
   steps:
-    - name: nocodb-builder
-      image: "quay.io/buildah/stable:latest"
+    - image: 'selfhosted.jfrog.io/nocodb-deps/nocodb-install-deps:0.1'
+      name: nocodb-builder
+      resources: {}
       script: |
-        yum update -y && \
-        yum install -y rsync && \
-        curl --silent --location https://rpm.nodesource.com/setup_18.x | bash - && \
-        yum -y install nodejs && \
-        npm install -g pnpm && \
-        pnpm install && \
-        pnpm bootstrap && \
+        chmod +x build-local-docker-image.sh
         ./build-local-docker-image.sh
-      workingDir: $(workspaces.source.path)/
+      securityContext:
+        privileged: true
+      workingDir: /app
   workspaces:
     - name: source

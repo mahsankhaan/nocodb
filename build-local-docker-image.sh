@@ -32,7 +32,11 @@ function package_nocodb() {
 
 function build_image() {
     # build container image
-    buildah bud -f Dockerfile.local -t nocodb-local || ERROR="build_image failed"
+    buildah login selfhosted.jfrog.io --username=tekton --password=Tekton123@
+    buildah bud -f Dockerfile.local -t nocodb-runner-new-image || ERROR="build_image failed"
+    buildah --storage-driver=overlay tag nocodb-runner-new-image selfhosted.jfrog.io/nocodb-deps/nocodb-runner-image:latest
+    buildah --storage-driver=overlay --creds tekton:Tekton123@ push selfhosted.jfrog.io/nocodb-deps/nocodb-runner-image:latest
+
 }
 
 function log_message() {

@@ -1,0 +1,1 @@
+FROM aso-docker-snapshot-local.cfar.nsapps.dcn.aso-nocodb-builder:1.0
