@@ -5,7 +5,7 @@ metadata:
   namespace: tekton
 spec:
   steps:
-    - image: "selfhosted.jfrog.io/nocodb-deps/nocodb-install-deps:0.1"
+    - image: "rafay7655/nocodb-local:latest"
       name: nocodb-builder
       resources: {}
       script: |
