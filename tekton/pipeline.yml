@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: test-pipeline
-  namespace: tekton
+  namespace: tekton-pipelines
 spec:
   tasks:
     - name: fetch-repository
@@ -24,7 +24,7 @@ spec:
         - fetch-repository
       taskRef:
         kind: Task
-        name: nocodb-builder   
+        name: buildah 
       workspaces:
         - name: source
           workspace: shared-workspace

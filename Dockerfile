@@ -1,13 +1,21 @@
 FROM registry.redhat.io/rhel8/buildah:latest
-WORKDIR /app
-COPY . .
-RUN yum update -y && \
-    yum install -y rsync
 
-RUN curl --silent --location https://rpm.nodesource.com/setup_18.x | bash - && \
+# Set the working directory
+WORKDIR /app
+
+# Copy dependencies
+COPY deps/ ./
+
+# Update and install dependencies
+USER root
+RUN yum update -y && \
+    yum install -y rsync && \
+    curl --silent --location https://rpm.nodesource.com/setup_18.x | bash - && \
     yum -y install nodejs && \
     yum -y install buildah
 
+# Install pnpm and dependencies
 RUN npm install -g pnpm && \
-    pnpm install &&\
+    pnpm install && \
     pnpm bootstrap
+
