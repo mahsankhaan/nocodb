@@ -24,7 +24,7 @@ WORKDIR /usr/src/app
 
 # install node-gyp dependencies
 #RUN apk add --no-cache python3 make g++
-RUN yum install python3 make g++
+RUN yum update -y && yum install python3 make g++
 #
 # install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
