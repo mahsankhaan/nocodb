@@ -18,12 +18,14 @@ RUN cp $GOPATH/bin/litestream /usr/src/lt
 ###########
 # Builder
 ###########
-FROM node:18.19.1-alpine as builder
+#FROM node:18.19.1-alpine as builder
+FROM registry.access.redhat.com/ubi8/nodejs-18:1-86 as builder
 WORKDIR /usr/src/app
 
 # install node-gyp dependencies
-RUN apk add --no-cache python3 make g++
-
+#RUN apk add --no-cache python3 make g++
+RUN yum install python3 make g++
+#
 # install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
