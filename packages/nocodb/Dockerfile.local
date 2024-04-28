@@ -20,7 +20,7 @@ RUN cp $GOPATH/bin/litestream /usr/src/lt
 ###########
 # Builder
 ###########
-#FROM node:18.19.1-alpine as builder
+#FROM node:18.19.1-alpine as builder (old image)
 FROM registry.access.redhat.com/ubi8/nodejs-18:1-102 as builder
 WORKDIR /usr/src/app
 
