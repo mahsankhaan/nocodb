@@ -23,10 +23,7 @@ FROM registry.access.redhat.com/ubi8/nodejs-18:1-86 as builder
 WORKDIR /usr/src/app
 
 # install node-gyp dependencies
-#RUN apk add --no-cache python3 make g++
-
-RUN yum install --disableplugin=subscription-manager python3 make g++ -y \
-    && yum clean --disableplugin=subscription-manager packages
+RUN apk add --no-cache python3 make g++
 
 #RUN yum update -y && yum install python3 make g++
 #
