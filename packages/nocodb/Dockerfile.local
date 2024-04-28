@@ -25,7 +25,7 @@ WORKDIR /usr/src/app
 # install node-gyp dependencies
 #RUN apk add --no-cache python3 make g++
 
-RUN yum install --disableplugin=subscription-manager python3   make g++ -y \
+RUN yum install --disableplugin=subscription-manager python3 make g++ -y \
     && yum clean --disableplugin=subscription-manager packages \
     && ln -s /usr/bin/python3 /usr/bin/python 
 
