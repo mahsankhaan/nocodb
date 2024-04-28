@@ -26,8 +26,7 @@ WORKDIR /usr/src/app
 #RUN apk add --no-cache python3 make g++
 
 RUN yum install --disableplugin=subscription-manager python3 make g++ -y \
-    && yum clean --disableplugin=subscription-manager packages \
-    && ln -s /usr/bin/python3 /usr/bin/python 
+    && yum clean --disableplugin=subscription-manager packages
 
 #RUN yum update -y && yum install python3 make g++
 #
