@@ -19,11 +19,19 @@ RUN cp $GOPATH/bin/litestream /usr/src/lt
 # Builder
 ###########
 #FROM node:18.19.1-alpine as builder
-FROM registry.access.redhat.com/ubi8/nodejs-18:1-86 as builder
+FROM registry.access.redhat.com/ubi8/nodejs-18:1-102 as builder as builder
 WORKDIR /usr/src/app
 
 # install node-gyp dependencies
-RUN apk add --no-cache python3 make g++
+#RUN apk add --no-cache python3 make g++
+
+USER root 
+
+RUN yum install --disableplugin=subscription-manager python3  make g++  -y \
+    && yum clean --disableplugin=subscription-manager packages \
+    && ln -s /usr/bin/python3 /usr/bin/python \
+    && useradd --uid 1000 --gid 0 --shell /bin/bash --create-home node
+
 
 #RUN yum update -y && yum install python3 make g++
 #
