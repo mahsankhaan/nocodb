@@ -1,4 +1,23 @@
 ###########
+# Litestream Builder
+###########
+FROM golang:alpine3.18 as lt-builder
+
+WORKDIR /usr/src/
+
+RUN apk add --no-cache git make musl-dev gcc
+
+# build litestream
+RUN git clone https://github.com/benbjohnson/litestream.git litestream
+RUN cd litestream ; go install ./cmd/litestream
+
+RUN cp $GOPATH/bin/litestream /usr/src/lt
+
+
+
+###########
+
+###########
 # Builder
 ###########
 #FROM node:18.19.1-alpine as builder
@@ -59,6 +78,9 @@ RUN apk --update --no-cache add \
     dumb-init \
     curl \
     jq
+
+# Copy litestream binary build
+COPY --from=lt-builder /usr/src/lt /usr/src/appEntry/litestream
 
 # Copy packaged production code & main entry file
 COPY --from=builder /usr/src/appEntry/ /usr/src/appEntry/
