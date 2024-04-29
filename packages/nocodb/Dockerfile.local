@@ -64,8 +64,10 @@ RUN pnpm install --prod --shamefully-hoist --reporter=silent \
 ##########
 # Runner
 ##########
-FROM alpine:3.19
+#FROM alpine:3.19
+
 WORKDIR /usr/src/app
+FROM registry.access.redhat.com/ubi8/ubi:8.9-1160
 
 ENV NC_DOCKER 0.6
 ENV NODE_ENV production
