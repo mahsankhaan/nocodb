@@ -19,14 +19,48 @@ spec:
       workspaces:
         - name: output
           workspace: shared-workspace
-    - name: helm-install
+    # - name: helm-install-mysql
+    #   params:
+    #     - name: helm_repo
+    #       value: https://charts.bitnami.com/bitnami
+    #     - name: chart_name
+    #       value: bitnami/mysql
+    #     - name: release_version
+    #       value: ~11.6.6
+    #     - name: release_name
+    #       value: helm-repo-mysql
+    #   runAfter:
+    #     - fetch-repository
+    #   taskRef:
+    #     name: helm-upgrade-from-repo
+    #   workspaces:
+    #     - name: source
+    #       workspace: shared-workspace
+    # - name: helm-install-postgresql
+    #   params:
+    #     - name: helm_repo
+    #       value: https://charts.bitnami.com/bitnami
+    #     - name: chart_name
+    #       value: bitnami/postgresql
+    #     - name: release_version
+    #       value: ~9.4.6
+    #     - name: release_name
+    #       value: helm-repo-postgresql
+    #   runAfter:
+    #     - helm-install-mysql
+    #   taskRef:
+    #     name: helm-upgrade-from-repo
+    #   workspaces:
+    #     - name: source
+    #       workspace: shared-workspace
+    - name: helm-nocodb
       params:
-      - name: charts_dir
-        value: ./charts/nocodb
-      - name: releases_version
-        value: v1.0.0
-      - name: release_name
-        value: helm-nocodb
+        - name: charts_dir
+          value: ./charts/nocodb
+        - name: releases_version
+          value: v1.0.0
+        - name: release_name
+          value: helm-nocodb
       runAfter:
         - fetch-repository
       taskRef:
