@@ -1,11 +1,11 @@
 apiVersion: v2
 appVersion: 0.100.2
 dependencies:
-- condition: postgresql.enabled
+- condition: postgresql.false
   name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: ~11.6.6
-- condition: mysql.enabled
+- condition: mysql.false
   name: mysql
   repository: https://charts.bitnami.com/bitnami
   version: ~9.4.6
