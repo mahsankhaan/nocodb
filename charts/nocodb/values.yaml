@@ -94,7 +94,7 @@ storage:
   storageClassName: "standard"  # Set the storage class to "standard"
 
 postgresql:
-  enabled: false
+  enabled: true
   auth:
     database: nocodb
     username: nocodb
@@ -103,11 +103,11 @@ postgresql:
     size: 8Gi
 
 mysql:
-  enabled: false
+  enabled: true
   auth:
     database: nocodb
     username: nocodb
     password: secretPass
   persistence:
-    enabled: false
+    enabled: true
     size: 8Gi
