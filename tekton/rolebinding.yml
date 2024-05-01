@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tekton-pipelines-secrets-reader-binding
+  namespace: tekton-pipelines
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: tekton-pipelines
+roleRef:
+  kind: Role
+  name: tekton-pipelines-secrets-reader
+  apiGroup: rbac.authorization.k8s.io
