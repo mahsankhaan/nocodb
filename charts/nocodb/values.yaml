@@ -103,7 +103,7 @@ postgresql:
     size: 8Gi
 
 mysql:
-  enabled: false
+  enabled: true
   auth:
     database: nocodb
     username: nocodb
