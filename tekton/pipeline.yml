@@ -19,12 +19,18 @@ spec:
       workspaces:
         - name: output
           workspace: shared-workspace
-    - name: nocodb-builder
+    - name: helm-install
+      params:
+      - name: charts_dir
+        value: ./charts/nocodb
+      - name: releases_version
+        value: v1.0.0
+      - name: release_name
+        value: helm-nocodb
       runAfter:
         - fetch-repository
       taskRef:
-        kind: Task
-        name: buildah 
+        name: helm-upgrade-from-source
       workspaces:
         - name: source
           workspace: shared-workspace
