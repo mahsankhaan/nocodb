@@ -91,7 +91,7 @@ storage:
   # Refer documentation for more details.
   enabled: true
   size: 3Gi
-  storageClassName: ""
+  storageClassName: "ovirt-csi-sc"
 
 postgresql:
   enabled: false
