@@ -95,7 +95,7 @@ storage:
   # Refer documentation for more details.
   enabled: true
   size: 3Gi
-  storageClassName: "gp2" # Set the storage class to "standard"
+  storageClassName: "default" # Set the storage class to "standard"
 
 postgresql:
   enabled: false
