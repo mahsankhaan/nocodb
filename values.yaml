@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: nocodb/nocodb
+  repository: nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -16,7 +16,9 @@ fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -24,13 +26,12 @@ serviceAccount:
   name: ""
 
 podAnnotations: {}
+podLabels: {}
 
-podSecurityContext:
-  {}
+podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext:
-  {}
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -40,24 +41,25 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 8080
+  port: 80
 
 ingress:
   enabled: false
-  annotations:
-    {}
+  className: ""
+  annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: chart-example.local
-      paths: []
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
 
-resources:
-  {}
+resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -69,6 +71,15 @@ resources:
   #   cpu: 100m
   #   memory: 128Mi
 
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
 autoscaling:
   enabled: false
   minReplicas: 1
@@ -76,42 +87,21 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
-
-extraEnvs:
-  NC_PUBLIC_URL: https:/nocodb.local.org
-
-extraSecretEnvs:
-  NC_AUTH_JWT_SECRET: secretString
-  NC_DB: "mysql2://10.244.0.193:3306?u=root&p=1bpcGPoR6i&d=nocodb"
-
-storage:
-  # If disabled, another persistent storage should be configured for attachments to work.
-  # We recommend setting NC_S3_BUCKET_NAME and other NC_S3* environment variables.
-  # Refer documentation for more details.
-  enabled: true
-  size: 3Gi
-  storageClassName: "gp2" # Set the storage class to "standard"
-
-postgresql:
-  enabled: false
-  auth:
-    database: nocodb
-    username: nocodb
-    password: secretPass
-  persistence:
-    size: 8Gi
-
-mysql:
-  enabled: true
-  auth:
-    database: nocodb
-    username: nocodb
-    password: secretPass
-  persistence:
-    enabled: true
-    size: 8Gi
