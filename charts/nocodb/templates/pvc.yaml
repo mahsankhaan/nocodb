@@ -11,6 +11,6 @@ spec:
       storage: {{ .Values.storage.size }}
   storageClassName: {{ .Values.storage.storageClassName }}
   accessModes:
-    {{- default (toYaml .Values.storage.accessModes) "- ReadWriteMany" | nindent 4 }}
+    {{- default (toYaml .Values.storage.accessModes) "- ReadWriteOnce" | nindent 4 }}
   volumeMode: Filesystem
 {{ end }}
