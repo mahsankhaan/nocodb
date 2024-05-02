@@ -113,5 +113,5 @@ mysql:
     username: nocodb
     password: secretPass
   persistence:
-    enabled: true
+    enabled: false
     size: 8Gi
