@@ -41,9 +41,9 @@ spec:
           {{- end }}
           envFrom:
             - configMapRef:
-                name: helm-nocodb-msql
+                name: helm-nocodb-mysql
             - secretRef:
-                name: helm-nocodb-msql
+                name: helm-nocodb-mysql
           ports:
             - name: http
               containerPort: 8080
