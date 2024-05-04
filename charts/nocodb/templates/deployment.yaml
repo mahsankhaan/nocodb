@@ -41,9 +41,9 @@ spec:
           {{- end }}
           envFrom:
             - configMapRef:
-                name: {{ include "nocodb.fullname" . }}
+                name: helm-nocodb-msql
             - secretRef:
-                name: {{ include "nocodb.fullname" . }}
+                name: helm-nocodb-msql
           ports:
             - name: http
               containerPort: 8080
