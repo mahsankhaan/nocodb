@@ -61,6 +61,12 @@ RUN pnpm install --prod --shamefully-hoist --reporter=silent \
     && tar -czf ../appEntry/app.tar.gz ./* \
     && chmod +x /usr/src/appEntry/start.sh
 
+
+RUN chmod -R g+w /usr
+USER 1001
+
+
+
 ##########
 # Runner
 ##########
@@ -77,8 +83,6 @@ RUN yum install wget -y
 RUN wget -O /usr/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64
 RUN chmod +x /usr/bin/dumb-init
 
-RUN chmod -R g+w /usr
-USER 1001
 
 RUN yum install -y \
     nodejs \
