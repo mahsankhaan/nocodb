@@ -33,15 +33,15 @@ function package_nocodb() {
 function build_image() {
     # build container image
      #buildah --storage-driver=overlay bud --no-cache -f ./tekton/Dockerfiles/Dockerfile.copying-artifacts -t nocodb-runner-image .  (our custom image)
-     #buildah login selfhosted.jfrog.io --username=tekton --password=Tekton123@
-     #buildah --storage-driver=overlay bud --no-cache -f ${SCRIPT_DIR}/packages/nocodb/Dockerfile.local -t nocodb-runner-new-image .
-     #buildah --storage-driver=overlay tag nocodb-runner-new-image selfhosted.jfrog.io/nocodb-deps/nocodb-runner-image:0.6
-     #buildah --storage-driver=overlay --creds tekton:Tekton123@ push selfhosted.jfrog.io/nocodb-deps/nocodb-runner-image:0.6
-
-     buildah login  --username=ahsanoffical --password=ahsan.123 registry-1.docker.io
+     buildah login selfhosted.jfrog.io --username=mahsank0345@gmail.com --password=Ahsan123
      buildah --storage-driver=overlay bud --no-cache -f ${SCRIPT_DIR}/packages/nocodb/Dockerfile.local -t nocodb-runner-new-image .
-     buildah --storage-driver=overlay tag nocodb-runner-new-image -t registry-1.docker.io/ahsanoffical/nocodb:0.3
-     buildah --storage-driver=overlay --creds ahsanoffical:ahsan.123 push registry-1.docker.io/ahsanoffical/nocodb:0.3
+     buildah --storage-driver=overlay tag nocodb-runner-new-image tektonproject.jfrog.io/nocodb-deps-docker/nocodb-runner-image:0.6
+     buildah --storage-driver=overlay --creds mahsank0345@gmail.com:Ahsan123 push tektonproject.jfrog.io/nocodb-deps-docker/nocodb-runner-image:0.6
+
+    # buildah login  --username=ahsanoffical --password=ahsan.123 registry-1.docker.io
+    # buildah --storage-driver=overlay bud --no-cache -f ${SCRIPT_DIR}/packages/nocodb/Dockerfile.local -t nocodb-runner-new-image .
+     #buildah --storage-driver=overlay tag nocodb-runner-new-image -t registry-1.docker.io/ahsanoffical/nocodb:0.3
+     #buildah --storage-driver=overlay --creds ahsanoffical:ahsan.123 push registry-1.docker.io/ahsanoffical/nocodb:0.3
 }
 
 function log_message() {
